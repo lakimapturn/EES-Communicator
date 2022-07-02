@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView, View } from "react-native";
+import { useFonts } from "expo-font";
+import { NativeBaseProvider, extendTheme, Text } from "native-base";
+import CustomText from "./src/components/custom/Text";
+import StackNavigator from "./src/navigation/StackNavigator";
+import { useEffect } from "react";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const theme = extendTheme({
+  fonts: {
+    heading: "Sora",
+    body: "Sora",
+    mono: "Sora",
   },
 });
+
+export default function App() {
+  const [loaded] = useFonts({
+    Sora: require("./assets/fonts/Sora.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
+  return (
+    <NativeBaseProvider theme={theme}>
+      <StackNavigator />
+    </NativeBaseProvider>
+  );
+}

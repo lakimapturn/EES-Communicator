@@ -1,48 +1,42 @@
 import { Button, HStack, Icon, Popover, VStack } from "native-base";
 import { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import { useSelector, useDispatch } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CustomText from "../components/custom/Text";
-import SubjectItem from "../components/list-items/SubjectItem";
-import Loading from "../components/Loading";
 import colors from "../constants/Colors";
-import { fetchSubjects } from "../store/actions/postActions";
+import AssessmentItem from "../components/list-items/AssessmentItem";
+import { fetchExams } from "../store/actions/examActions";
+import Loading from "../components/Loading";
 
-const SubjectsList = (props) => {
+const AssessmentsList = (props) => {
+  // const [assessments, setAssessments] = useState(dummy_assessments);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const subjects = useSelector((state) => state.post.subjects);
-  const isDataFetching = useSelector((state) => state.post.isFetching);
+  const isDataFetching = useSelector((state) => state.exam.isFetching);
+  const assessments = useSelector((state) => state.exam.exams);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    AsyncStorage.getItem("session")
-      .then((jsonValue) => JSON.parse(jsonValue))
-      .then((user) => {
-        dispatch(fetchSubjects(user.id));
-      })
-      .catch((err) => console.log("Error: " + err));
+    dispatch(fetchExams());
   }, []);
 
-  const onPressSubject = (subject) => {
-    props.navigation.navigate("Posts", {
-      title: subject,
+  const onPressAssessment = (assessment) => {
+    props.navigation.navigate("Assessment Report", {
+      title: assessment,
     });
   };
 
   const renderItem = ({ item }) => (
-    <SubjectItem
-      subject={item}
-      onPressHandler={(subject) => onPressSubject(subject.subject_name)}
+    <AssessmentItem
+      assessment={item}
+      onPressHandler={(assessment) => onPressAssessment(assessment)}
     />
   );
 
-  if (isDataFetching && subjects.length === 0) {
-    return <Loading text="Fetching Subjects..." />;
-  }
+  if (isDataFetching && assessments.length === 0)
+    return <Loading text="Fetching Exam List..." />;
 
   return (
     <VStack padding={3.5}>
@@ -52,7 +46,7 @@ const SubjectsList = (props) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <CustomText style={{ fontSize: 18 }}>Subjects:</CustomText>
+        <CustomText style={{ fontSize: 18 }}>Assessments:</CustomText>
         <Popover
           isOpen={isFilterOpen}
           placement="bottom left"
@@ -78,13 +72,13 @@ const SubjectsList = (props) => {
           )}
         >
           <Popover.Content
-            w="48"
+            w="56"
             bgColor={colors.black}
-            accessibilityLabel="Filter Posts"
+            accessibilityLabel="Filter Assessments"
           >
             <Popover.Arrow />
             <Popover.CloseButton onPress={() => setIsFilterOpen(false)} />
-            <Popover.Header>Filter Posts</Popover.Header>
+            <Popover.Header>Filter Assessments</Popover.Header>
             <Popover.Body>Something</Popover.Body>
           </Popover.Content>
         </Popover>
@@ -93,12 +87,12 @@ const SubjectsList = (props) => {
         contentContainerStyle={{
           padding: "4%",
         }}
-        keyExtractor={(item) => item.id}
-        data={subjects}
+        data={assessments}
+        keyExtractor={(item) => item?.id}
         renderItem={renderItem}
       />
     </VStack>
   );
 };
 
-export default SubjectsList;
+export default AssessmentsList;

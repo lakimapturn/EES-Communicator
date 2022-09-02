@@ -1,5 +1,7 @@
 import { Button, Icon, Input, View } from "native-base";
 import { useEffect, useState } from "react";
+import { ActivityIndicator } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Image,
   Keyboard,
@@ -7,16 +9,36 @@ import {
   Platform,
   StyleSheet,
 } from "react-native";
-import { Card } from "react-native-paper";
-import Octicon from "react-native-vector-icons/Octicons";
-import CustomText from "../components/custom/Text";
+import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
+import { useDispatch } from "react-redux";
 
+import Container from "../components/Container";
+import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
+import { authenticate, syncData } from "../store/actions/userActions";
 
 const Login = (props) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [error, setError] = useState("");
+  const [showLoading, setShowLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    AsyncStorage.getItem("session")
+      .then((jsonValue) => {
+        if (jsonValue !== null) {
+          dispatch(syncData(jsonValue));
+          props.navigation.replace("Dashboard");
+        }
+      })
+      .catch((err) =>
+        setError("Something went wrong while trying to sign you in!")
+      );
+  }, []);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -38,18 +60,32 @@ const Login = (props) => {
     };
   }, []);
 
-  const onChangeUsernameHandler = (text) => {
-    setUsername(text);
+  const onChangeEmailHandler = (text) => {
+    setEmail(text);
+    if (email.length < 2) isButtonDisabledHandler();
   };
 
   const onChangePasswordHandler = (text) => {
     setPassword(text);
+    if (password.length < 2) isButtonDisabledHandler();
+    isButtonDisabledHandler();
   };
 
-  const login = () => {
-    setUsername();
-    setPassword();
-    props.navigation.replace("Dashboard");
+  const isButtonDisabledHandler = () => {
+    setIsButtonDisabled(email === "" || password === "");
+  };
+
+  const login = async () => {
+    setShowLoading(true);
+    try {
+      await dispatch(authenticate(email, password));
+      props.navigation.replace("Dashboard");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      setError("Invalid Credentials!");
+      setShowLoading(false);
+    }
   };
 
   return (
@@ -66,23 +102,30 @@ const Login = (props) => {
         </View>
       )}
       <View marginY="4">
-        <Card style={styles.inputContainer}>
+        <Container color={colors.navy} style={styles.inputContainer}>
+          {error !== "" && (
+            <CustomText style={{ textAlign: "center" }} color={colors.white}>
+              {error}
+            </CustomText>
+          )}
           <Input
             marginY="2"
+            paddingY="2"
             variant="filled"
-            placeholder="Username"
+            placeholder="Email"
             selectionColor={colors.blue}
-            autoCapitalize={false}
+            autoCapitalize="none"
             fontSize="sm"
             backgroundColor={colors.white}
             borderBottomWidth="3"
-            value={username}
-            onChangeText={(text) => onChangeUsernameHandler(text)}
+            borderColor={colors.navy}
+            value={email}
+            onChangeText={(text) => onChangeEmailHandler(text)}
             type="text"
             InputLeftElement={
               <Icon
-                as={<Octicon name="person" />}
-                size={6}
+                as={<FontAwesome5Icon name="at" />}
+                size={5}
                 ml="2"
                 color={colors.blue}
               />
@@ -90,36 +133,48 @@ const Login = (props) => {
           />
           <Input
             marginY="2"
+            paddingY="2"
             variant="filled"
             placeholder="Password"
+            autoCapitalize="none"
             selectionColor={colors.blue}
             fontSize="sm"
             backgroundColor={colors.white}
+            borderColor={colors.navy}
             borderBottomWidth="3"
             value={password}
             onChangeText={(text) => onChangePasswordHandler(text)}
             type="password"
             InputLeftElement={
               <Icon
-                as={<Octicon name="key" />}
-                size={6}
+                as={<FontAwesome5Icon name="key" />}
+                size={5}
                 ml="2"
                 color={colors.blue}
               />
             }
           />
+
           <Button
             marginTop="3"
             borderRadius="full"
             alignSelf="center"
             bg={colors.green}
             onPress={login}
+            shadow={8}
+            style={{ shadowColor: "#fff" }}
+            disabled={isButtonDisabled}
+            opacity={isButtonDisabled ? "0.5" : "1"}
           >
-            <CustomText color={colors.white} paddingX="5">
-              Login
-            </CustomText>
+            {showLoading ? (
+              <ActivityIndicator size="large" color={colors.white} />
+            ) : (
+              <CustomText color={colors.white} paddingX="5">
+                Login
+              </CustomText>
+            )}
           </Button>
-        </Card>
+        </Container>
       </View>
     </KeyboardAvoidingView>
   );
@@ -135,7 +190,6 @@ const styles = StyleSheet.create({
     paddingVertical: "14%",
     width: "70%",
     borderRadius: 20,
-    backgroundColor: colors.navy,
   },
 });
 

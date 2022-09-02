@@ -1,12 +1,15 @@
-import { StyleSheet, View } from "react-native";
+import { Box, View } from "native-base";
+import { StyleSheet } from "react-native";
+import colors from "../constants/Colors";
 
 const Container = (props) => {
   return (
     <View
-      style={[
-        styles.container,
-        { backgroundColor: props.color, ...props.style },
-      ]}
+      shadow={props.shadow ? props.shadow : 0}
+      padding={props.padding ? props.padding : 4}
+      borderRadius={props.borderRadius ? props.borderRadius : "3xl"}
+      bg={props.color ? props.color : "blue.100"}
+      style={[{ ...props.style }, styles.container]}
     >
       {props.children}
     </View>
@@ -15,16 +18,13 @@ const Container = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 20,
-    padding: "5%",
-
-    shadowColor: "#000",
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: 4,
     },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
+    shadowOpacity: 1,
+    shadowRadius: 6,
     elevation: 10,
   },
 });

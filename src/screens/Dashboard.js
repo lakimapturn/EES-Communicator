@@ -1,9 +1,9 @@
-import { HStack, Icon, VStack } from "native-base";
-import { useEffect, useState } from "react";
+import { HStack, Icon, VStack, Avatar } from "native-base";
 import { StyleSheet, View, ScrollView } from "react-native";
 import Octicon from "react-native-vector-icons/Octicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
+import { useSelector } from "react-redux";
 
 import ActionButton from "../components/ActionButton";
 import Container from "../components/Container";
@@ -11,46 +11,59 @@ import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
 
 const Dashboard = (props) => {
+  const user = useSelector((state) => state.user);
+
   const attendanceOnPressHandler = () => {
-    props.navigation.navigate("Attendance");
+    props.navigation.push("Attendance");
   };
 
   const postsOnPressHandler = () => {
-    props.navigation.navigate("Posts");
+    props.navigation.push("Subjects");
+  };
+
+  const assessmentsOnPressHandler = () => {
+    props.navigation.push("Assessments");
   };
 
   return (
     <ScrollView>
-      <VStack space={4} style={styles.container}>
+      <VStack space="5" padding={8} justifyContent="space-between">
         <View>
           <CustomText style={styles.welcomeText}>
-            Welcome Back, Laksh Makhija!
+            Welcome Back, {user.name}!
           </CustomText>
         </View>
 
         <View>
           <Container color={colors.blue}>
-            <HStack space={5}>
+            <HStack space={6}>
               <VStack justifyContent="center">
-                <Icon
-                  as={<Octicon name="person" />}
-                  size={10}
-                  ml="2"
-                  color={colors.white}
-                />
+                {/* student image goes here */}
+                <Avatar
+                  size="lg"
+                  bg="cyan.500"
+                  source={{
+                    uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+                  }}
+                >
+                  Laksh Makhija
+                  {/* current user full name */}
+                </Avatar>
               </VStack>
               <VStack space={2.5}>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Full Name: {"\n"}Laksh Makhija
+                  Full Name: {"\n"}
+                  {user.name}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Grade: 12-D
+                  Grade: {user.grade}-{user.section}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  DOB: 09/04/2005
+                  DOB: {user.dob}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Academic Year: {"\n"}2022-2023
+                  Academic Year: {"\n"}
+                  {user.academic_year}
                 </CustomText>
               </VStack>
             </HStack>
@@ -60,15 +73,24 @@ const Dashboard = (props) => {
         <HStack justifyContent="space-between">
           <ActionButton
             bg={colors.red}
-            text="Attendance"
+            text={{ text: "Attendance", size: 14 }}
             icon={{ as: Octicon, name: "checklist" }}
             onPress={attendanceOnPressHandler}
           />
           <ActionButton
             bg={colors.yellow}
-            text="Posts"
+            text={{ text: "Posts", size: 14 }}
             icon={{ as: MaterialIcon, name: "post-add", size: 12 }}
             onPress={postsOnPressHandler}
+          />
+        </HStack>
+
+        <HStack justifyContent={"center"}>
+          <ActionButton
+            bg={colors.navy}
+            text={{ text: "Assessment Report", size: 14 }}
+            icon={{ as: MaterialIcon, name: "assessment", size: 12 }}
+            onPress={assessmentsOnPressHandler}
           />
         </HStack>
 
@@ -104,18 +126,18 @@ const Dashboard = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: "5%",
   },
   welcomeText: {
-    fontSize: 20,
+    fontSize: 22,
+    lineHeight: 24,
   },
   userInfo: {
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 22,
     flexWrap: "wrap",
   },
   feesText: {
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
   },
   asOfDate: {

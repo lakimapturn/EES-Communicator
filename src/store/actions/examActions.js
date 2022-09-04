@@ -17,6 +17,7 @@ export const fetchExams = () => {
         payload: { exams: result },
       });
     } catch (err) {
+      navigateToErrorPage({ message: "Error Fetching Exam List!" });
       console.log("Error: " + err);
     }
   };

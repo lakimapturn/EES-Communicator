@@ -1,3 +1,5 @@
+import { navigateToErrorPage } from "../../constants/navigation";
+
 export const FETCHING = "FETCHING";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_SUBJECTS = "FETCH_SUBJECTS";
@@ -17,6 +19,7 @@ export const fetchPosts = (grade, section) => {
         payload: { posts: result },
       });
     } catch (err) {
+      navigateToErrorPage({ message: "Error Fetching Posts!" });
       console.log("Error: " + err);
     }
   };
@@ -30,13 +33,13 @@ export const fetchSubjects = (user_id) => {
         `https://communicator-hate.herokuapp.com/api/subjects.php?user_id=7310`
       );
       const result = await response.json();
-      // console.log(result);
 
       dispatch({
         type: FETCH_SUBJECTS,
         payload: { subjects: result },
       });
     } catch (err) {
+      navigateToErrorPage({ message: "Error Fetching Subject List!" });
       console.log("Error: " + err);
     }
   };

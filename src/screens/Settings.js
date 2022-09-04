@@ -1,9 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button, Divider, Modal, Switch, TextArea, VStack } from "native-base";
+import {
+  Button,
+  Divider,
+  Icon,
+  Modal,
+  Popover,
+  Switch,
+  TextArea,
+  VStack,
+} from "native-base";
 import { useEffect, useState } from "react";
 import { Alert, View } from "react-native";
 import { List } from "react-native-paper";
 import { useDispatch } from "react-redux";
+import Ionicon from "react-native-vector-icons/Ionicons";
 
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
@@ -69,11 +79,45 @@ const Settings = (props) => {
               title="Push Notifications"
               titleStyle={{ fontFamily: "Sora", fontSize: 14 }}
               right={() => (
-                <Switch
-                  size="md"
-                  value={pushNotifications}
-                  onToggle={() => registerForPushNotificationsAsync()}
-                />
+                // <Switch
+                //   size="md"
+                //   value={pushNotifications}
+                //   onToggle={() => registerForPushNotificationsAsync()}
+                // />
+                <Popover
+                  isOpen={pushNotifications}
+                  placement="left"
+                  trigger={(triggerProps) => (
+                    <Button
+                      variant="outline"
+                      {...triggerProps}
+                      onPress={() => setPushNotifications(true)}
+                      borderRadius="full"
+                      startIcon={
+                        <Icon
+                          as={Ionicon}
+                          name="information"
+                          size="lg"
+                          color="coolGray.500"
+                        />
+                      }
+                      padding="0"
+                    ></Button>
+                  )}
+                >
+                  <Popover.Content
+                    w="48"
+                    bgColor={colors.black}
+                    accessibilityLabel="Filter Posts"
+                  >
+                    <Popover.CloseButton
+                      onPress={() => setPushNotifications(false)}
+                    />
+                    <Popover.Body>
+                      Turn on/off Push Notifications from the settings app!
+                    </Popover.Body>
+                  </Popover.Content>
+                </Popover>
               )}
             />
           </List.Section>

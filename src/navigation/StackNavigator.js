@@ -15,11 +15,13 @@ import Post from "../screens/Post";
 import AssessmentReport from "../screens/AssessmentReport";
 import AssessmentsList from "../screens/AssessmentsList";
 import Settings from "../screens/Settings";
+import ErrorScreen from "../screens/Error";
+import { navigationRef } from "../constants/navigation";
 
 const Stack = createStackNavigator();
 
 const StackNavigator = () => (
-  <NavigationContainer>
+  <NavigationContainer ref={navigationRef}>
     <Stack.Navigator
       screenOptions={{
         headerTintColor: colors.white,
@@ -76,6 +78,8 @@ const StackNavigator = () => (
         })}
       />
       <Stack.Screen name="Post" component={Post} />
+
+      <Stack.Screen name="Error" component={ErrorScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

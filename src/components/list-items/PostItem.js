@@ -10,6 +10,13 @@ import CustomText from "../custom/Text";
 const PostItem = (props) => {
   const [loading, setLoading] = useState(false);
 
+  const formatDate = () => {
+    let postDate = props.post.post_date;
+    postDate = postDate.substring(0, postDate.indexOf(" "));
+
+    return new Date(postDate).toDateString();
+  };
+
   // Check on Papa's Iphone if u need this function
   const onPostPressedHandler = () => {
     setLoading(true);
@@ -50,17 +57,17 @@ const PostItem = (props) => {
                 </CustomText>
               </HStack>
 
-              <CustomText
+              {/* <CustomText
                 color={colors.white}
                 light
                 fontSize={13}
                 numberOfLines={1}
               >
                 {props.post.post_content}
-              </CustomText>
+              </CustomText> */}
 
               <CustomText light color={colors.white} fontSize={10}>
-                {props.post.post_date}
+                {formatDate()}
               </CustomText>
             </VStack>
             <VStack justifyContent="center">

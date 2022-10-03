@@ -4,7 +4,7 @@ export const FETCHING = "FETCHING";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_SUBJECTS = "FETCH_SUBJECTS";
 
-export const fetchPosts = (grade, section) => {
+export const fetchPosts = (grade, section, subject) => {
   return async (dispatch) => {
     dispatch({ type: FETCHING });
 

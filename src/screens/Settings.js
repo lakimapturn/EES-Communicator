@@ -91,7 +91,7 @@ const Settings = (props) => {
                     <Button
                       variant="outline"
                       {...triggerProps}
-                      onPress={() => setPushNotifications(true)}
+                      onPress={() => setPushNotifications(false)}
                       borderRadius="full"
                       startIcon={
                         <Icon

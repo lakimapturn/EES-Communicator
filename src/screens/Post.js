@@ -31,21 +31,24 @@ const Post = (props) => {
     if (attachments.length === 0) return null;
     return (
       <>
-        {attachments.map((attachment) => (
-          <List.Item
-            key={attachment.attachment.toString()}
-            title={attachment.name}
-            titleStyle={{ fontFamily: "SoraLight" }}
-            left={(props) => (
-              <List.Icon
-                {...props}
-                icon="file-powerpoint-outline"
-                color={colors.red}
-              />
-            )}
-            onPress={() => console.log("pressed!")}
-          />
-        ))}
+        {attachments.map((attachment) => {
+          const uri = attachment.attachment.toString();
+          return (
+            <List.Item
+              key={uri}
+              title={attachment.name}
+              titleStyle={{ fontFamily: "SoraLight" }}
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="file-powerpoint-outline"
+                  color={colors.red}
+                />
+              )}
+              onPress={() => props.navigation.navigate("Image", { uri: uri })}
+            />
+          );
+        })}
       </>
     );
   };
@@ -65,6 +68,8 @@ const Post = (props) => {
       <View style={{ width: "4%" }} />
     </>
   );
+  const h = "";
+  h.replace("<o:p>", "");
 
   return (
     <View style={{ flex: 1, marginBottom: "8%" }}>
@@ -106,8 +111,8 @@ const Post = (props) => {
 
           <RenderHTML
             contentWidth={width}
-            ignoredDomTags={["o:p"]}
-            source={{ html: post.post_content }}
+            // ignoredDomTags={["o:p"]}
+            source={{ html: post.post_content.replace("<o:p>|</o:p>", "") }}
           />
         </VStack>
 

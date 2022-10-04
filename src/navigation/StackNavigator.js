@@ -17,7 +17,7 @@ import AssessmentsList from "../screens/AssessmentsList";
 import Settings from "../screens/Settings";
 import ErrorScreen from "../screens/Error";
 import { navigationRef } from "../constants/navigation";
-import ImageScreen from "../screens/Image";
+import AttachmentScreen from "../screens/Attachment";
 
 const Stack = createStackNavigator();
 
@@ -81,7 +81,7 @@ const StackNavigator = () => (
       <Stack.Screen name="Post" component={Post} />
 
       <Stack.Screen name="Error" component={ErrorScreen} />
-      <Stack.Screen name="Image" component={ImageScreen} />
+      <Stack.Screen name="Attachment" component={AttachmentScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

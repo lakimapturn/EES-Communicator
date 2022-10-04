@@ -12,6 +12,7 @@ import Loading from "../components/Loading";
 import PostItem from "../components/list-items/PostItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchPosts } from "../store/actions/postActions";
+import { screens } from "../constants/navigation";
 
 const PostsList = (props) => {
   const [searchValue, setSearchValue] = useState("");
@@ -46,7 +47,7 @@ const PostsList = (props) => {
   };
 
   const onPressPost = (id) => {
-    props.navigation.navigate("Post", { id: id });
+    props.navigation.navigate(screens.post, { id: id });
   };
 
   const renderPost = ({ item }) => (

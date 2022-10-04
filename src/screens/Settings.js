@@ -22,6 +22,7 @@ import {
   setNotifications,
 } from "../constants/notifications";
 import { logoutUser } from "../store/actions/userActions";
+import { screens } from "../constants/navigation";
 
 const Settings = (props) => {
   const [pushNotifications, setPushNotifications] = useState(false);
@@ -49,7 +50,7 @@ const Settings = (props) => {
     try {
       dispatch(logoutUser());
       // setErrorMsg("Something");
-      props.navigation.replace("Login");
+      props.navigation.replace(screens.login);
     } catch (err) {
       setErrorMsg(err);
     }

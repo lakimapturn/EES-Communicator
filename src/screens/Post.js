@@ -8,6 +8,7 @@ import ActionButton from "../components/ActionButton";
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
 import { useSelector } from "react-redux";
+import { screens } from "../constants/navigation";
 
 const exampleData = ["Grade 11", "Grade 12", "Subject"];
 
@@ -45,7 +46,9 @@ const Post = (props) => {
                   color={colors.red}
                 />
               )}
-              onPress={() => props.navigation.navigate("Image", { uri: uri })}
+              onPress={() =>
+                props.navigation.navigate(screens.attachment, { uri: uri })
+              }
             />
           );
         })}
@@ -111,8 +114,8 @@ const Post = (props) => {
 
           <RenderHTML
             contentWidth={width}
-            // ignoredDomTags={["o:p"]}
-            source={{ html: post.post_content.replace("<o:p>|</o:p>", "") }}
+            ignoredDomTags={["o:p"]}
+            source={{ html: post.post_content }}
           />
         </VStack>
 

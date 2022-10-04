@@ -16,6 +16,7 @@ import Container from "../components/Container";
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
 import { authenticate, syncData } from "../store/actions/userActions";
+import { screens } from "../constants/navigation";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const Login = (props) => {
       .then((jsonValue) => {
         if (jsonValue !== null) {
           dispatch(syncData(jsonValue));
-          props.navigation.replace("Dashboard");
+          props.navigation.replace(screens.dashboard);
         }
       })
       .catch((err) =>
@@ -79,7 +80,7 @@ const Login = (props) => {
     setShowLoading(true);
     try {
       await dispatch(authenticate(email, password));
-      props.navigation.replace("Dashboard");
+      props.navigation.replace(screens.dashboard);
       setEmail("");
       setPassword("");
     } catch (error) {

@@ -9,20 +9,21 @@ import ActionButton from "../components/ActionButton";
 import Container from "../components/Container";
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
+import { screens } from "../constants/navigation";
 
 const Dashboard = (props) => {
   const user = useSelector((state) => state.user);
 
   const attendanceOnPressHandler = () => {
-    props.navigation.push("Attendance");
+    props.navigation.push(screens.attendance);
   };
 
   const postsOnPressHandler = () => {
-    props.navigation.push("Subjects");
+    props.navigation.push(screens.subjectList);
   };
 
   const assessmentsOnPressHandler = () => {
-    props.navigation.push("Assessments");
+    props.navigation.push(screens.assessmentList);
   };
 
   return (

@@ -9,6 +9,7 @@ import colors from "../constants/Colors";
 import AssessmentItem from "../components/list-items/AssessmentItem";
 import { fetchExams } from "../store/actions/examActions";
 import Loading from "../components/Loading";
+import { screens } from "../constants/navigation";
 
 const AssessmentsList = (props) => {
   // const [assessments, setAssessments] = useState(dummy_assessments);
@@ -23,7 +24,7 @@ const AssessmentsList = (props) => {
   }, []);
 
   const onPressAssessment = (assessment) => {
-    props.navigation.navigate("Assessment Report", {
+    props.navigation.navigate(screens.assessmentReport, {
       title: assessment,
     });
   };

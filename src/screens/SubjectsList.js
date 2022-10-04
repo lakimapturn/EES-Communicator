@@ -10,6 +10,7 @@ import SubjectItem from "../components/list-items/SubjectItem";
 import Loading from "../components/Loading";
 import colors from "../constants/Colors";
 import { fetchSubjects } from "../store/actions/postActions";
+import { screens } from "../constants/navigation";
 
 const SubjectsList = (props) => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -28,7 +29,7 @@ const SubjectsList = (props) => {
   }, []);
 
   const onPressSubject = (subject) => {
-    props.navigation.navigate("Posts", {
+    props.navigation.navigate(screens.postsList, {
       title: subject,
     });
   };

@@ -44,7 +44,8 @@ export const fetchAttendance = (userId) => {
     const data = { user_id: userId };
     try {
       const response = await fetch(
-        `https://communicator-hate.herokuapp.com/api/attendance.php?id=${userId}`,
+        // `https://communicator-hate.herokuapp.com/api/attendance.php?id=${userId}`,
+        `https://communicator-hate.herokuapp.com/api/attendance.php?id=10634`,
         {
           method: "POST",
           headers: {
@@ -54,6 +55,7 @@ export const fetchAttendance = (userId) => {
         }
       );
       const result = await response.json();
+      // await console.log(result);
 
       dispatch({
         type: FETCH_ATTENDANCE,

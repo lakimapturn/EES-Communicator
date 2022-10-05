@@ -53,17 +53,18 @@ const Dashboard = (props) => {
               </VStack>
               <VStack space={2.5}>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Full Name: {"\n"}
+                  <CustomText bold>Full Name:</CustomText> {"\n"}
                   {user.name}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Grade: {user.grade}-{user.section}
+                  <CustomText bold>Grade:</CustomText> {user.grade}-
+                  {user.section}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  DOB: {user.dob}
+                  <CustomText bold>DOB:</CustomText> {user.dob}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
-                  Academic Year: {"\n"}
+                  <CustomText bold>Academic Year:</CustomText> {"\n"}
                   {user.academic_year}
                 </CustomText>
               </VStack>

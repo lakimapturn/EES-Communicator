@@ -8,16 +8,38 @@ import Container from "../components/Container";
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
 import DateItem from "../components/list-items/DateItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../components/Loading";
+import { useEffect } from "react";
+import { fetchAttendance } from "../store/actions/userActions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const calendarWidth = Dimensions.get("window").width * 0.95;
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 
+const minDate = "2022-04-01";
+
+const maxDate = new Date(
+  Math.min(
+    new Date().getTime() - 864 * 100000,
+    new Date("2023-03-01").getTime()
+  )
+).toDateString();
+
 const Attendance = (props) => {
-  const absentDates = useSelector((state) => state.user.absentDates);
+  const absentDates = useSelector((state) => state.user.absent_dates);
   const isFetching = useSelector((state) => state.user.isFetching);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    AsyncStorage.getItem("session")
+      .then((jsonValue) => JSON.parse(jsonValue))
+      .then((user) => dispatch(fetchAttendance(user)))
+      .catch((err) => console.log("Error: " + err));
+  }, []);
 
   if (isFetching) return <Loading text="Loading Attendance..." />;
 
@@ -28,7 +50,7 @@ const Attendance = (props) => {
 
   const markedDates = () => {
     const marked = {};
-    for (let date of absentDates) {
+    for (let date in absentDates) {
       const dateObj = new Date(date);
 
       if (dateObj.getUTCDate() !== today.getUTCDate() + 1)
@@ -73,7 +95,11 @@ const Attendance = (props) => {
             disabledDaysIndexes={[5, 6]}
             enableSwipeMonths
             dayComponent={({ date, state }) => (
-              <DateItem date={date} state={state} />
+              <DateItem
+                date={date}
+                state={state}
+                absent={absentDates?.includes(date.dateString)}
+              />
             )}
             theme={{
               backgroundColor: "#f8f8f8",
@@ -86,11 +112,8 @@ const Attendance = (props) => {
               textMonthFontFamily: "Sora",
               textDayFontFamily: "Sora",
             }}
-            minDate={"2022-03-01"}
-            maxDate={Math.min(
-              new Date().getTime() - 864 * 100000,
-              new Date("2023-03-01").getTime()
-            )}
+            minDate={minDate}
+            maxDate={maxDate}
             style={{ width: calendarWidth }}
             hideExtraDays={true}
             renderArrow={(direction) => (

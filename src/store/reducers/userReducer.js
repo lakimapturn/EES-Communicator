@@ -20,7 +20,6 @@ const initialState = {
   section: "",
   is_active: false,
   is_subscribed: false,
-  second_name: "",
   picture: null,
   absent_dates: [],
 };
@@ -42,7 +41,6 @@ const userReducer = (state = initialState, action) => {
         name: action.payload.user.name,
         academic_year: action.payload.user.academic_year,
         dob: action.payload.user.dob,
-        second_name: action.payload.user.second_name,
         grade: action.payload.user.grade,
         section: action.payload.user.section,
         grno: action.payload.user.grno,
@@ -51,9 +49,9 @@ const userReducer = (state = initialState, action) => {
     }
 
     case FETCH_ATTENDANCE: {
-      const absentDates = new Set();
-      action.payload.user.attendance.forEach((day) => {
-        absentDates.add(day.date.split(/\s+/)[0]);
+      const absentDates = [];
+      action.payload.attendance.forEach((day) => {
+        absentDates.push(day.attendance_date.split(/\s+/)[0]);
       });
 
       return Object.assign({}, state, {

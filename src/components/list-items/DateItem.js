@@ -5,7 +5,7 @@ import { dummy_dates } from "../../constants/dummy-data";
 import CustomText from "../custom/Text";
 
 const DateItem = (props) => {
-  const absent = dummy_dates.includes(props.date.dateString); // check if student was absent on the given date
+  const absent = props.absent; // check if student was absent on the given date
   const day = new Date(props.date.dateString).getDay(); // check which day of the week the given date is
   const weekend = day === 6 || day === 0; // checking if day is saturday or sunday respectively
 

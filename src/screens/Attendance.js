@@ -5,16 +5,21 @@ import { PieChart } from "react-native-gifted-charts";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
 import Container from "../components/Container";
-import { dummy_dates } from "../constants/dummy-data";
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
 import DateItem from "../components/list-items/DateItem";
+import { useSelector } from "react-redux";
 
 const calendarWidth = Dimensions.get("window").width * 0.95;
 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 const Attendance = (props) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const absentDates = useSelector((state) => state.user.absentDates);
+  const isFetching = useSelector((state) => state.user.isFetching);
+
+  if (isFetching) return <Loading text="Loading Attendance..." />;
 
   const pieData = [
     { key: "present", value: 75, color: colors.green, text: "75%" },
@@ -23,11 +28,11 @@ const Attendance = (props) => {
 
   const markedDates = () => {
     const marked = {};
-    for (let i = 0; i < dummy_dates.length; i++) {
-      const date = new Date(dummy_dates[i]);
+    for (let date of absentDates) {
+      const dateObj = new Date(date);
 
-      if (date.getUTCDate() !== today.getUTCDate() + 1)
-        marked[dummy_dates[i]] = {
+      if (dateObj.getUTCDate() !== today.getUTCDate() + 1)
+        marked[date] = {
           selected: true,
           selectedColor: "transparent",
           selectedTextColor: colors.red,

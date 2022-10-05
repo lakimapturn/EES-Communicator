@@ -1,6 +1,11 @@
 // store id, name, role_id, grno, email, grade, section, is_active, is_subscribed, second_name, picture in session variable
 
-import { AUTHENTICATE, FETCHING, LOGOUT } from "../actions/userActions";
+import {
+  AUTHENTICATE,
+  FETCHING,
+  FETCH_ATTENDANCE,
+  LOGOUT,
+} from "../actions/userActions";
 
 const initialState = {
   isFetching: false,
@@ -17,6 +22,7 @@ const initialState = {
   is_subscribed: false,
   second_name: "",
   picture: null,
+  absent_dates: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -41,6 +47,19 @@ const userReducer = (state = initialState, action) => {
         section: action.payload.user.section,
         grno: action.payload.user.grno,
         picture: action.payload.user.picture,
+      });
+    }
+
+    case FETCH_ATTENDANCE: {
+      const absentDates = new Set();
+      action.payload.user.attendance.forEach((day) => {
+        absentDates.add(day.date.split(/\s+/)[0]);
+      });
+
+      return Object.assign({}, state, {
+        ...state,
+        isFetching: false,
+        absent_dates: absentDates,
       });
     }
 

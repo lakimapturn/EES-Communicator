@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const FETCHING = "FETCHING";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
+export const FETCH_ATTENDANCE = "FETCH_ATTENDANCE";
 
 export const authenticate = (email, password) => {
   return async (dispatch) => {
@@ -30,6 +31,33 @@ export const authenticate = (email, password) => {
       dispatch({
         type: AUTHENTICATE,
         payload: { user: result },
+      });
+    } catch (err) {
+      console.log(err);
+      throw new Error(err);
+    }
+  };
+};
+
+export const fetchAttendance = (userId) => {
+  return async (dispatch) => {
+    const data = { user_id: userId };
+    try {
+      const response = await fetch(
+        `https://communicator-hate.herokuapp.com/api/attendance.php?id=${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+
+      dispatch({
+        type: FETCH_ATTENDANCE,
+        payload: { attendance: result },
       });
     } catch (err) {
       console.log(err);

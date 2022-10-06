@@ -17,6 +17,7 @@ const CustomText = (props) => {
           color: props.color,
           textDecorationLine: props.underline && "underline",
           fontFamily: font,
+          lineHeight: props.fontSize ? props.fontSize + 3 : 22,
           // fontStyle: props.italic && "italic",
         },
       ]}

@@ -41,11 +41,13 @@ export const authenticate = (email, password) => {
 
 export const fetchAttendance = (userId) => {
   return async (dispatch) => {
+    dispatch({ type: FETCHING });
+
     const data = { user_id: userId };
     try {
       const response = await fetch(
-        // `https://communicator-hate.herokuapp.com/api/attendance.php?id=${userId}`,
-        `https://communicator-hate.herokuapp.com/api/attendance.php?id=10634`,
+        // `https://communicator-hate.herokuapp.com/api/calendar.php?id=${userId}`,
+        `https://communicator-hate.herokuapp.com/api/calendar.php?id=10634`,
         {
           method: "POST",
           headers: {
@@ -55,11 +57,14 @@ export const fetchAttendance = (userId) => {
         }
       );
       const result = await response.json();
-      // await console.log(result);
+      await console.log(result);
 
       dispatch({
         type: FETCH_ATTENDANCE,
-        payload: { attendance: result },
+        payload: {
+          absent: result[0].absent,
+          absentPerc: result[1].absent_perc,
+        },
       });
     } catch (err) {
       console.log(err);

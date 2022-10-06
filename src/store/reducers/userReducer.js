@@ -22,6 +22,7 @@ const initialState = {
   is_subscribed: false,
   picture: null,
   absent_dates: [],
+  absent_perc: 0,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -50,14 +51,15 @@ const userReducer = (state = initialState, action) => {
 
     case FETCH_ATTENDANCE: {
       const absentDates = [];
-      action.payload.attendance.forEach((day) => {
-        absentDates.push(day.attendance_date.split(/\s+/)[0]);
+      action.payload.absent.forEach((day) => {
+        absentDates.push(day.date.split(/\s+/)[0]);
       });
 
       return Object.assign({}, state, {
         ...state,
         isFetching: false,
         absent_dates: absentDates,
+        absent_perc: action.payload.absentPerc,
       });
     }
 

@@ -30,6 +30,7 @@ const maxDate = new Date(
 
 const Attendance = (props) => {
   const absentDates = useSelector((state) => state.user.absent_dates);
+  const absentPerc = useSelector((state) => state.user.absent_perc);
   const isFetching = useSelector((state) => state.user.isFetching);
 
   const dispatch = useDispatch();
@@ -43,9 +44,21 @@ const Attendance = (props) => {
 
   if (isFetching) return <Loading text="Loading Attendance..." />;
 
+  console.log(absentPerc);
+
   const pieData = [
-    { key: "present", value: 75, color: colors.green, text: "75%" },
-    { key: "absent", value: 25, color: colors.red, text: "25%" },
+    {
+      key: "present",
+      value: 100 - absentPerc,
+      color: colors.green,
+      text: `${100 - absentPerc}%`,
+    },
+    {
+      key: "absent",
+      value: absentPerc,
+      color: colors.red,
+      text: `${absentPerc}%`,
+    },
   ];
 
   const markedDates = () => {

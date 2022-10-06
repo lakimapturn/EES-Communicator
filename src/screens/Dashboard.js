@@ -1,5 +1,5 @@
 import { HStack, Icon, VStack, Avatar } from "native-base";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import Octicon from "react-native-vector-icons/Octicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import Ionicon from "react-native-vector-icons/Ionicons";
@@ -30,9 +30,10 @@ const Dashboard = (props) => {
     <ScrollView>
       <VStack space="5" padding={8} justifyContent="space-between">
         <View>
-          <CustomText style={styles.welcomeText}>
-            Welcome Back, {user.name}!
+          <CustomText light fontSize={16}>
+            Welcome Back,
           </CustomText>
+          <CustomText fontSize={22}>{user.name}!</CustomText>
         </View>
 
         <View>
@@ -47,8 +48,7 @@ const Dashboard = (props) => {
                     uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
                   }}
                 >
-                  Laksh Makhija
-                  {/* current user full name */}
+                  {user.name}
                 </Avatar>
               </VStack>
               <VStack space={2.5}>
@@ -129,12 +129,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  welcomeText: {
-    fontSize: 22,
-    lineHeight: 24,
-  },
   userInfo: {
-    fontSize: 15,
+    fontSize: 14,
     lineHeight: 22,
     flexWrap: "wrap",
   },

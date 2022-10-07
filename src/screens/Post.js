@@ -71,8 +71,6 @@ const Post = (props) => {
       <View style={{ width: "4%" }} />
     </>
   );
-  const h = "";
-  h.replace("<o:p>", "");
 
   return (
     <View style={{ flex: 1, marginBottom: "8%" }}>
@@ -80,7 +78,7 @@ const Post = (props) => {
         style={{ marginHorizontal: "4%" }}
         showsVerticalScrollIndicator={false}
       >
-        <VStack space={2}>
+        <VStack space={2} marginTop="4">
           <CustomText fontSize={24} bold>
             {post.post_title}
           </CustomText>

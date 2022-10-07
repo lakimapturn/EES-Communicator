@@ -63,8 +63,8 @@ const PostsList = (props) => {
   }
 
   return (
-    <VStack padding={3} space={4}>
-      <View borderBottomWidth={1} paddingY={2}>
+    <>
+      <View padding={3} borderBottomWidth={1} paddingY={2}>
         <Input
           placeholder="Search..."
           variant="outline"
@@ -93,11 +93,11 @@ const PostsList = (props) => {
           color={colors.yellow}
         />
       ) : (
-        <View>
+        <>
           {posts?.length > 0 ? (
             <FlatList
               contentContainerStyle={{
-                paddingHorizontal: "4%",
+                padding: "4%",
               }}
               keyExtractor={(item) => item.id}
               data={posts}
@@ -108,9 +108,11 @@ const PostsList = (props) => {
               Oops! Looks like no posts match that query!
             </CustomText>
           )}
-        </View>
+        </>
       )}
-    </VStack>
+    </>
+
+    // </VStack>
   );
 };
 

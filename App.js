@@ -45,6 +45,7 @@ export default function App() {
 
   // Notification variables
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
@@ -67,12 +68,13 @@ export default function App() {
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log("Received!");
+        setNotification(notification);
+        console.log("Received!", notification);
       });
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        console.log("something" + response);
       });
 
     return () => {

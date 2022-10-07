@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "CommunicatorApp",
+    "name": "ESS Communicator",
     "slug": "CommunicatorApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/EES-Logo.jpg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/EES-Logo.png",
@@ -14,9 +14,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lakimapturn.CommunicatorApp"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,6 +29,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a306cfe4-947d-4404-bf0b-4bf42d906f91"
+      }
     }
   }
 }

@@ -38,11 +38,12 @@ const Dashboard = (props) => {
 
         <View>
           <Container color={colors.blue}>
-            <HStack space={6}>
+            <HStack space={6} paddingRight="16">
               <VStack justifyContent="center">
                 {/* student image goes here */}
                 <Avatar
-                  size="lg"
+                  height="16"
+                  width="16"
                   bg="cyan.500"
                   source={{
                     uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
@@ -52,7 +53,11 @@ const Dashboard = (props) => {
                 </Avatar>
               </VStack>
               <VStack space={2.5}>
-                <CustomText color={colors.white} style={styles.userInfo}>
+                <CustomText
+                  color={colors.white}
+                  numberOfLines={2}
+                  style={styles.userInfo}
+                >
                   <CustomText bold>Full Name:</CustomText> {"\n"}
                   {user.name}
                 </CustomText>

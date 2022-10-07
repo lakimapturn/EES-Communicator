@@ -1,5 +1,6 @@
 import { Avatar, HStack, Icon, VStack } from "native-base";
 import { useState } from "react";
+import { Image, View } from "react-native";
 import { ActivityIndicator, TouchableOpacity } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
@@ -36,16 +37,16 @@ const PostItem = (props) => {
         ) : (
           <HStack justifyContent="space-around">
             <VStack space={1} maxWidth="56">
-              <HStack alignItems="center" space={1}>
+              <HStack alignItems="center" space={2} paddingRight="10">
                 <Avatar
                   bg="cyan.500"
                   source={{
                     uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
                   }}
-                  size="sm"
+                  height="10"
+                  width="10"
                 >
                   Laksh Makhija
-                  {/* props.post.post_teacher.name full name */}
                 </Avatar>
                 <CustomText
                   bold

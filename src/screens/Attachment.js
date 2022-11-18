@@ -2,6 +2,7 @@ import WebView from "react-native-webview";
 import Loading from "../components/Loading";
 
 const AttachmentScreen = (props) => {
+  console.log(props.route.params.uri);
   const uri =
     `https://elitelearninggateway.com/${props.route.params.uri}`.replace(
       " ",

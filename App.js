@@ -5,7 +5,7 @@ import {
   Sora_700Bold,
 } from "@expo-google-fonts/sora";
 import { NativeBaseProvider } from "native-base";
-import { applyMiddleware, combineReducers } from "redux";
+import { applyMiddleware } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import ReduxThunk from "redux-thunk";
 import * as Notifications from "expo-notifications";
@@ -18,7 +18,7 @@ import AnimatedSplash from "react-native-animated-splash-screen";
 import { useEffect, useRef, useState } from "react";
 import examReducer from "./src/store/reducers/examReducer";
 import { registerForPushNotificationsAsync } from "./src/constants/notifications";
-import { Linking } from "react-native";
+import { Linking, Text, View } from "react-native";
 
 const appReducer = {
   user: userReducer,
@@ -94,7 +94,11 @@ export default function App() {
   }, [lastNotificationResponse]);
 
   if (!loaded) {
-    return null;
+    return (
+      <View>
+        <Text>Loading....</Text>
+      </View>
+    );
   }
 
   return (

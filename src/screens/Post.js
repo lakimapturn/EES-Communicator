@@ -34,6 +34,7 @@ const Post = (props) => {
       <>
         {attachments.map((attachment) => {
           const uri = attachment.attachment.toString();
+          console.log("POST: " + uri);
           return (
             <List.Item
               key={uri}

@@ -14,18 +14,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lakimapturn.CommunicatorApp"
+      "bundleIdentifier": "com.lakimapturn.CommunicatorApp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.lakimapturn.CommunicatorApp",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -14,6 +14,19 @@ import { screens } from "../constants/navigation";
 const Dashboard = (props) => {
   const user = useSelector((state) => state.user);
 
+  const getFullName = () => {
+    if (user.name) {
+      name = user.name.toLowerCase().split(" ");
+      for (let i = 0; i < name.length; i++) {
+        name[i] = name[i][0].toUpperCase() + name[i].slice(1);
+      }
+
+      return name.join(" ");
+    }
+
+    return "User";
+  };
+
   const attendanceOnPressHandler = () => {
     props.navigation.push(screens.attendance);
   };
@@ -33,7 +46,9 @@ const Dashboard = (props) => {
           <CustomText light fontSize={16}>
             Welcome Back,
           </CustomText>
-          <CustomText fontSize={22}>{user.name}!</CustomText>
+          <CustomText fontSize={22} bold>
+            {getFullName()}!
+          </CustomText>
         </View>
 
         <View>
@@ -49,7 +64,7 @@ const Dashboard = (props) => {
                     uri: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
                   }}
                 >
-                  {user.name}
+                  {getFullName()}
                 </Avatar>
               </VStack>
               <VStack space={2.5}>
@@ -59,7 +74,7 @@ const Dashboard = (props) => {
                   style={styles.userInfo}
                 >
                   <CustomText bold>Full Name:</CustomText> {"\n"}
-                  {user.name}
+                  {getFullName()}
                 </CustomText>
                 <CustomText color={colors.white} style={styles.userInfo}>
                   <CustomText bold>Grade:</CustomText> {user.grade}-

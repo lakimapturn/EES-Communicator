@@ -33,7 +33,10 @@ const Login = (props) => {
       .then((jsonValue) => {
         if (jsonValue !== null) {
           dispatch(syncData(jsonValue));
-          props.navigation.replace(screens.dashboard);
+          props.navigation.reset({
+            index: 0,
+            routes: [{ name: screens.dashboard }],
+          });
         }
       })
       .catch((err) =>
@@ -80,7 +83,10 @@ const Login = (props) => {
     setShowLoading(true);
     try {
       await dispatch(authenticate(email, password));
-      props.navigation.replace(screens.dashboard);
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: screens.dashboard }],
+      });
       setEmail("");
       setPassword("");
     } catch (error) {

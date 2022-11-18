@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import CustomText from "../components/custom/Text";
 import colors from "../constants/Colors";
-import { posts_data } from "../constants/dummy-data";
 import { useEffect, useState } from "react";
 import AwesomeLoading from "react-native-awesome-loading";
 import Loading from "../components/Loading";
@@ -40,7 +39,7 @@ const PostsList = (props) => {
     if (!searchValue) setPosts(postsList);
     else
       setPosts(
-        posts_data.filter((post) => post.post_title.includes(searchValue))
+        postsList.filter((post) => post.post_title.includes(searchValue))
       );
 
     setIsSearching(false);

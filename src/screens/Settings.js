@@ -34,11 +34,11 @@ const Settings = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    setPushNotifications(
-      AsyncStorage.getItem("enabledNotifications").then((jsonValue) =>
-        JSON.parse(jsonValue)
-      )
-    );
+    // setPushNotifications(
+    //   AsyncStorage.getItem("enabledNotifications").then((jsonValue) =>
+    //     JSON.parse(jsonValue)
+    //   )
+    // );
     setLoading(false);
   }, []);
 
@@ -50,7 +50,10 @@ const Settings = (props) => {
     try {
       dispatch(logoutUser());
       // setErrorMsg("Something");
-      props.navigation.replace(screens.login);
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: screens.login }],
+      });
     } catch (err) {
       setErrorMsg(err);
     }
@@ -67,12 +70,7 @@ const Settings = (props) => {
           </View>
         </Alert>
       )} */}
-      <VStack
-        flex={1}
-        paddingX="4"
-        paddingTop="3"
-        justifyContent="space-between"
-      >
+      <VStack flex={1} paddingX="4" paddingY="3" justifyContent="space-between">
         <View>
           <List.Section>
             <CustomText fontSize={18}>Notifications</CustomText>
@@ -92,7 +90,9 @@ const Settings = (props) => {
                     <Button
                       variant="outline"
                       {...triggerProps}
-                      onPress={() => setPushNotifications(false)}
+                      onPress={() =>
+                        setPushNotifications((prevState) => !prevState)
+                      }
                       borderRadius="full"
                       startIcon={
                         <Icon

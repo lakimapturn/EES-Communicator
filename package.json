@@ -37,7 +37,8 @@
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "expo-notifications": "~0.15.4",
-    "expo-device": "~4.2.0"
+    "expo-device": "~4.2.0",
+    "expo-updates": "~0.13.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -10,7 +10,7 @@ export const fetchPosts = (grade, section, subject) => {
 
     try {
       const response = await fetch(
-        `https://communicator-hate.herokuapp.com/api/posts.php`
+        `http://ees-communicator.infinityfreeapp.com/api/posts.php`
       );
       const result = await response.json();
 
@@ -30,7 +30,7 @@ export const fetchSubjects = (user_id) => {
     try {
       dispatch({ type: FETCHING });
       const response = await fetch(
-        `https://communicator-hate.herokuapp.com/api/subjects.php?id=7310`
+        `http://ees-communicator.infinityfreeapp.com/api/subjects.php?id=7310`
       );
       const result = await response.json();
 

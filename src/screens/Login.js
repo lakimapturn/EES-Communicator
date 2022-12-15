@@ -28,41 +28,41 @@ const Login = (props) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    AsyncStorage.getItem("session")
-      .then((jsonValue) => {
-        if (jsonValue !== null) {
-          dispatch(syncData(jsonValue));
-          props.navigation.reset({
-            index: 0,
-            routes: [{ name: screens.dashboard }],
-          });
-        }
-      })
-      .catch((err) =>
-        setError("Something went wrong while trying to sign you in!")
-      );
-  }, []);
+  // useEffect(() => {
+  //   AsyncStorage.getItem("session")
+  //     .then((jsonValue) => {
+  //       if (jsonValue !== null) {
+  //         dispatch(syncData(jsonValue));
+  //         props.navigation.reset({
+  //           index: 0,
+  //           routes: [{ name: screens.dashboard }],
+  //         });
+  //       }
+  //     })
+  //     .catch((err) =>
+  //       setError("Something went wrong while trying to sign you in!")
+  //     );
+  // }, []);
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setIsKeyboardVisible(true);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setIsKeyboardVisible(false);
-      }
-    );
+  // useEffect(() => {
+  //   const keyboardDidShowListener = Keyboard.addListener(
+  //     "keyboardDidShow",
+  //     () => {
+  //       setIsKeyboardVisible(true);
+  //     }
+  //   );
+  //   const keyboardDidHideListener = Keyboard.addListener(
+  //     "keyboardDidHide",
+  //     () => {
+  //       setIsKeyboardVisible(false);
+  //     }
+  //   );
 
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
+  //   return () => {
+  //     keyboardDidHideListener.remove();
+  //     keyboardDidShowListener.remove();
+  //   };
+  // }, []);
 
   const onChangeEmailHandler = (text) => {
     setEmail(text);

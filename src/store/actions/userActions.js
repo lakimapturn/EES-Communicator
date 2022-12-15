@@ -10,7 +10,7 @@ export const authenticate = (email, password) => {
     const data = { email: email, password: password };
     try {
       const response = await fetch(
-        "https://communicator-hate.herokuapp.com/api/auth.php",
+        "http://localhost/communicator-api/api/auth.php",
         {
           method: "POST", // or 'PUT'
           headers: {
@@ -20,7 +20,7 @@ export const authenticate = (email, password) => {
         }
       );
       const result = await response.json();
-      console.log(!result.error);
+      console.log(result);
 
       if (!result.error) {
         await AsyncStorage.setItem("session", JSON.stringify(result));
@@ -47,7 +47,7 @@ export const fetchAttendance = (userId) => {
     try {
       const response = await fetch(
         // `https://communicator-hate.herokuapp.com/api/calendar.php?id=${userId}`,
-        `https://communicator-hate.herokuapp.com/api/calendar.php?id=10634`,
+        `http://ees-communicator.infinityfreeapp.com/api/calendar.php?id=10634`,
         {
           method: "POST",
           headers: {

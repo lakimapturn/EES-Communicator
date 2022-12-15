@@ -7,7 +7,7 @@ export const fetchExams = () => {
       dispatch({ type: FETCHING });
 
       const response = await fetch(
-        `https://communicator-hate.herokuapp.com/api/exams.php`
+        `http://ees-communicator.infinityfreeapp.com/api/exams.php`
       );
       const result = await response.json();
       // console.log(result);

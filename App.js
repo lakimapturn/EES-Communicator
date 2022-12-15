@@ -59,39 +59,39 @@ export default function App() {
 
   setTimeout(() => setAppLoaded(true), 1000);
 
-  useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => {
-        setExpoPushToken(token);
-      })
-      .catch((err) => console.log("remove user's device"));
+  // useEffect(() => {
+  //   registerForPushNotificationsAsync()
+  //     .then((token) => {
+  //       setExpoPushToken(token);
+  //     })
+  //     .catch((err) => console.log("remove user's device"));
 
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
-        console.log("Received!", notification);
-      });
+  //   notificationListener.current =
+  //     Notifications.addNotificationReceivedListener((notification) => {
+  //       setNotification(notification);
+  //       console.log("Received!", notification);
+  //     });
 
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log("something" + response);
-      });
+  //   responseListener.current =
+  //     Notifications.addNotificationResponseReceivedListener((response) => {
+  //       console.log("something" + response);
+  //     });
 
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
+  //   return () => {
+  //     Notifications.removeNotificationSubscription(
+  //       notificationListener.current
+  //     );
+  //     Notifications.removeNotificationSubscription(responseListener.current);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (lastNotificationResponse) {
-      Linking.openURL(
-        lastNotificationResponse.notification.request.content.data.url
-      );
-    }
-  }, [lastNotificationResponse]);
+  // useEffect(() => {
+  //   if (lastNotificationResponse) {
+  //     Linking.openURL(
+  //       lastNotificationResponse.notification.request.content.data.url
+  //     );
+  //   }
+  // }, [lastNotificationResponse]);
 
   if (!loaded) {
     return (
@@ -102,19 +102,19 @@ export default function App() {
   }
 
   return (
-    <AnimatedSplash
-      translucent={true}
-      isLoaded={appLoaded}
-      logoImage={require("./assets/EES-Logo.png")}
-      backgroundColor={"#36454F"}
-      logoHeight={350}
-      logoWidth={350}
-    >
-      <NativeBaseProvider>
-        <Provider store={store}>
-          <StackNavigator />
-        </Provider>
-      </NativeBaseProvider>
-    </AnimatedSplash>
+    // <AnimatedSplash
+    //   translucent={true}
+    //   isLoaded={appLoaded}
+    //   logoImage={require("./assets/EES-Logo.png")}
+    //   backgroundColor={"#36454F"}
+    //   logoHeight={350}
+    //   logoWidth={350}
+    // >
+    <NativeBaseProvider>
+      <Provider store={store}>
+        <StackNavigator />
+      </Provider>
+    </NativeBaseProvider>
+    // </AnimatedSplash>
   );
 }

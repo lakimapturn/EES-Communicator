@@ -35,7 +35,7 @@ const StackNavigator = () => (
       }}
     >
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Dashboard"
         component={Dashboard}
         options={({ navigation }) => ({
@@ -81,7 +81,7 @@ const StackNavigator = () => (
       <Stack.Screen name="Post" component={Post} />
 
       <Stack.Screen name="Error" component={ErrorScreen} />
-      <Stack.Screen name="Attachment" component={AttachmentScreen} />
+      <Stack.Screen name="Attachment" component={AttachmentScreen} /> */}
     </Stack.Navigator>
   </NavigationContainer>
 );
